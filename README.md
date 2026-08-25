@@ -32,6 +32,9 @@ Throw an object with collision against the world
   * This remote sync is not incredibly accurate to not spend too many bits on it: 25m from where you throw, with 0.2m precision, so landing location might differ slightly between local and remote.
   * If you want rotation sync, install the components from the Rotation-Synced directory.
 
+## How the FPS compensation works
+* The time between frames is measured across a couple of frames, and the force particle's strength is adjusted based on that
+
 ## Install guide
 
 https://github.com/VRLabs/Rigidbody-Throw/assets/76777936/57fbfe66-ddfd-4b0c-b168-e739ffc0a1ef
@@ -50,6 +53,7 @@ https://github.com/VRLabs/Rigidbody-Throw/assets/76777936/57fbfe66-ddfd-4b0c-b16
 * To change the friction and the bounciness, change the parameters on the ``Resources/Physics Material`` Physics Material and apply that Physics Material to your Collision Collider.
 * To have a custom throwing/reset condition, change the ``GestureRight Equals 1 or 2`` conditions in the ``Rigidbody Throw Main`` layer.  
 * To change world collision, only use Colliders on the `Collision Collider` object. This can be a Box Collider, Sphere Collider, Capsule Collider, but it has to be on the `Collision Collider` object.
+* To add a way to adjust the force, add the ``RigidbodyThrow/ForceMultipliperNormalized`` parameter to your menu, as a radial puppet
 
 ## Performance stats
 
@@ -61,7 +65,7 @@ Constraints:            10
 Constraint Depth:       7
 Contact Receivers:      4
 Contact Senders:        2
-FX Animator Layers:     4
+FX Animator Layers:     5
 Particle Systems:       2
 Rigidbodies:            2
 Joints:                 1
@@ -76,13 +80,20 @@ Constraints:            14
 Constraint Depth:       8
 Contact Receivers:      4
 Contact Senders:        2
-FX Animator Layers:     4
+FX Animator Layers:     5
 Particle Systems:       2
 PhysBones:              6
 PhysBone Colliders:     3
 Rigidbodies:            2
 Joints:                 1
 Expression Parameters:  51
+```
+
+FPS compensation versions:
+
+```c++
+Adds 1 more layer, compared to the other version of the same type
+It costs the same amount of parameters as the other version of the same type
 ```
 
 ## Hierarchy layout
